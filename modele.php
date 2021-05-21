@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 define("SERVER", "localhost");
-define("USERNAME", "root");
-define("PASSWORD", "");
-define("DBNAME", "blog");
+define("USERNAME", "e2095613");
+define("PASSWORD", "PCBuMJ4BTSUz91frPWse");
+define("DBNAME", "e2095613");
 
 $connexion = connectDB();
 
@@ -23,7 +23,7 @@ function connectDB()
 
 /**
  * fonction qui récupère tous les articles de blog
- * @return array  un array  possiblement vide ou d'articles
+ * @return array  un array possiblement vide ou d'articles
  */
 function obtenir_articles(): array
 {
@@ -49,7 +49,7 @@ function obtenir_articles(): array
 /**
  * Fonction qui récupère un article de blog par id
  * @param  int $id
- * @return array  un array  vide ou un array  contant UN SEUL article
+ * @return array  un array vide ou un array contant UN SEUL article
  */
 function obtenir_article_par_id(int $id): array
 {
@@ -163,7 +163,8 @@ function supprimer_article(int $id): bool
  * @param  string $password
  * @return array | bool un user ou false
  */
-function login(string $username, string $password): array | bool
+// la version de PHP sur webdev est trop ancienne et ne prend pas en charge les union types (pas de type sur cette fonction donc...)
+function login($username, $password)
 {
     global $connexion;
 
@@ -178,7 +179,9 @@ function login(string $username, string $password): array | bool
             $hash = $user["password"];
             $match = password_verify($password, $hash);
             if ($match) {
-                return array_filter($user, fn ($k) => $k === "username", ARRAY_FILTER_USE_KEY);
+                return array_filter($user, function($k) {
+                    return $k === "username";
+                }, ARRAY_FILTER_USE_KEY);
             } else {
                 return false;
             }
