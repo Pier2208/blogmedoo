@@ -20,7 +20,6 @@ switch ($commande) {
 
         require_once("vues/Entete.php");
         require_once("vues/Articles.php");
-        require_once("vues/PiedDePage.php");
         break;
 
     case 'RechercherArticle':
@@ -34,7 +33,6 @@ switch ($commande) {
 
             require_once("vues/Entete.php");
             require_once("vues/Articles.php");
-            require_once("vues/PiedDePage.php");
             break;
         }
 
@@ -48,7 +46,6 @@ switch ($commande) {
         $meta['titre'] = "Publier un article";
         require_once("vues/Entete.php");
         require_once("vues/AjouterArticle.php");
-        require_once("vues/PiedDePage.php");
         break;
 
         // fonction de validation et d'ajout d'un nouvel article
@@ -63,7 +60,6 @@ switch ($commande) {
             if ($erreurs) {
                 require_once("vues/Entete.php");
                 require_once("vues/AjouterArticle.php");
-                require_once("vues/PiedDePage.php");
                 return;
             }
 
@@ -90,7 +86,6 @@ switch ($commande) {
                 $meta['titre'] = "Editer un article";
                 require_once("vues/Entete.php");
                 require_once("vues/AjouterArticle.php");
-                require_once("vues/PiedDePage.php");
             } else {
                 // si idArticle qui n'existe pas passé dans la query string ou si currentUser n'est pas l'auteur de l'article
                 header("Location: index.php?commande=Articles");
@@ -111,7 +106,6 @@ switch ($commande) {
             if ($erreurs) {
                 require_once("vues/Entete.php");
                 require_once("vues/AjouterArticle.php");
-                require_once("vues/PiedDePage.php");
                 return;
             }
             // mise à jour de l'article dans la BD
@@ -162,20 +156,19 @@ switch ($commande) {
             if ($erreurs) {
                 require_once("vues/Entete.php");
                 require_once("vues/Login.php");
-                require_once("vues/PiedDePage.php");
                 return;
             }
 
-            // vérification des credentials et mise en session du username
-            $isValid = login($username, $password);
-            if ($isValid) {
-                $_SESSION["username"] = $username;
+            // vérification des credentials
+            $user = login($username, $password);
+            if ($user) {
+                // mise en session du username provenant de la DB et non du user input (attention la collation utf8_general_ci est case-insensitive!!)
+                $_SESSION["username"] = $user["username"];
                 header("Location: index.php?commande=Articles");
             } else {
                 $erreurs['connexion'] = "Mauvaise combinaison nom d'utilisateur/mot de passe";
                 require_once("vues/Entete.php");
                 require_once("vues/Login.php");
-                require_once("vues/PiedDePage.php");
             }
         }
         break;

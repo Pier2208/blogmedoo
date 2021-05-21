@@ -23,7 +23,7 @@ function connectDB()
 
 /**
  * fonction qui récupère tous les articles de blog
- * @return array un array possiblement vide ou d'articles
+ * @return array  un array  possiblement vide ou d'articles
  */
 function obtenir_articles(): array
 {
@@ -49,7 +49,7 @@ function obtenir_articles(): array
 /**
  * Fonction qui récupère un article de blog par id
  * @param  int $id
- * @return array un array vide ou un array contant UN SEUL article
+ * @return array  un array  vide ou un array  contant UN SEUL article
  */
 function obtenir_article_par_id(int $id): array
 {
@@ -73,7 +73,7 @@ function obtenir_article_par_id(int $id): array
 /**
  * fonction qui recherche un article par mot-clé
  * @param string $recherche
- * @return array
+ * @return array 
  */
 function rechercher_articles(string $recherche): array
 {
@@ -161,22 +161,25 @@ function supprimer_article(int $id): bool
  * fonction qui authentifie un utilisateur
  * @param  string $username
  * @param  string $password
- * @return bool
+ * @return array | bool un user ou false
  */
-function login(string $username, string $password): bool
+function login(string $username, string $password): array | bool
 {
     global $connexion;
 
-    $req = mysqli_prepare($connexion, "SELECT password FROM usagers WHERE username=?");
+    $req = mysqli_prepare($connexion, "SELECT username, password FROM usagers WHERE username=?");
     if ($req) {
         mysqli_stmt_bind_param($req, 's', $username);
         mysqli_stmt_execute($req);
         $resultSet = mysqli_stmt_get_result($req);
 
         if (mysqli_num_rows($resultSet) > 0) {
-            $rangee = mysqli_fetch_assoc($resultSet);
-            $hash = $rangee["password"];
-            return password_verify($password, $hash);
+            $user = mysqli_fetch_assoc($resultSet);
+            $hash = $user["password"];
+            $match = password_verify($password, $hash);
+            if ($match) {
+                return array_filter($user, fn ($k) => $k === "username", ARRAY_FILTER_USE_KEY);
+            }
         } else {
             return false;
         }
