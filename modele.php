@@ -179,6 +179,8 @@ function login(string $username, string $password): array | bool
             $match = password_verify($password, $hash);
             if ($match) {
                 return array_filter($user, fn ($k) => $k === "username", ARRAY_FILTER_USE_KEY);
+            } else {
+                return false;
             }
         } else {
             return false;

@@ -12,9 +12,10 @@
 
     <header class="navbar">
         <a class="navbar__logo" href="index.php">
-        <?= file_get_contents('assets/media/logo.svg'); ?>
+            <?= file_get_contents('assets/media/logo.svg'); ?>
             <span>Blog Me Doo</span>
         </a>
+        <small class="navbar__connectedAs"><?= isset($_SESSION["username"]) ? '(connecté en tant que ' . $_SESSION["username"] . ')' : '' ?></small>
         <?php
         if ($commande === 'Articles' || $commande === 'RechercherArticle') :
         ?>
@@ -24,7 +25,7 @@
                 <button type="submit" name="rechercher" class="rechercherBtn" value="Rechercher"><i class="fas fa-search"></i></button>
             </form>
         <?php
-        endif; 
+        endif;
         ?>
         <nav>
             <ul class="navbar__menu">
