@@ -1,0 +1,280 @@
+:root {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+body {
+  font-family: "Judson", sans-serif;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+/* Rythme */
+h1 + *,
+div.article + *,
+header + * {
+  margin-top: 1.5rem;
+}
+
+h2 + * {
+  margin-top: 1rem;
+}
+
+.fas + a {
+  margin-left: 1rem;
+}
+
+li + li {
+  margin-left: 3rem;
+}
+
+.container {
+  /* min-height: 100vh; */
+  max-width: 1100px;
+  margin-right: auto;
+  margin-left: auto;
+  display: grid;
+  justify-items: center;
+}
+
+/* HEADER */
+.navbar {
+  width: 100%;
+  background-color: rgb(31, 31, 201);
+  color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+}
+
+.navbar a {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.navbar li > a {
+  text-decoration: underline;
+}
+
+.navbar svg {
+  width: 100px;
+  height: 100px;
+}
+
+.navbar__logo {
+  color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 15%;
+  font-size: 1.6rem;
+  padding: 0.5rem 0;
+  margin-right: auto;
+}
+
+.navbar__logo > span {
+  font-size: 1.8rem;
+}
+
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar__menu > li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar__menu > li > .fas {
+  font-size: 3rem;
+  color: white;
+  fill: white;
+}
+
+/* ARTICLES */
+.articles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.article {
+  margin-top: 1.5rem;
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 2px 2px 24px rgba(0, 0, 0, 0.1);
+}
+
+.article__titre {
+  background-color: rgb(161, 208, 248);
+  padding: 1rem;
+}
+
+.article__texte {
+  padding: 1rem;
+}
+
+.article__auteur {
+  display: flex;
+  padding: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.article__actions > a > .fas {
+  font-size: 1.3rem;
+  margin-left: 1rem;
+  color: rgb(83, 83, 83);
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+
+.fas.fa-edit:hover  {
+  color: rgb(31, 31, 201);
+  transform: scale(1.1);
+}
+
+.fas.fa-trash-alt:hover {
+  color: rgb(185, 2, 2);
+  transform: scale(1.1);
+}
+
+.articlesNotFound {
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+/* LOGIN PAGE */
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 5rem;
+}
+
+form.ajouterArticle {
+  display: flex;
+  max-width: 550px;
+}
+
+.form__title {
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form__title svg {
+  width: 150px;
+  height: 150px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.form__error--field {
+  position: absolute;
+  bottom: -1.5rem;
+  left: 0;
+  color: red;
+}
+
+.form__error--global {
+  background-color: rgb(197, 30, 30);
+  color: white;
+  width: 100%;
+  display: inline-block;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  transition: all 300ms ease-in-out;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+  margin-top: 0.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  box-shadow: 2px 6px 12px rgba(0, 0, 0, 0.1);
+  background-color: rgb(255, 255, 255);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+  border: 1px solid rgb(31, 31, 201);
+}
+
+input[type="submit"], button {
+  background-color: rgb(31, 31, 201);
+  margin-top: 0.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  color: #f5f5f5;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  transition: all 300ms ease-in-out;
+}
+
+
+input[type="submit"]:hover, .rechercherBtn:hover {
+  background-color: rgb(13, 13, 83);
+  cursor: pointer;
+}
+
+label {
+  font-size: 1.1rem;
+}
+
+.rechercherBtn {
+  width: fit-content;
+  border: 1px solid #fff;
+  padding: 0.5rem;
+}
+
+form.rechercherArticle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10rem;
+  margin-top: 0;
+  max-width: 500px;
+}
+
+form.rechercherArticle > input[type='text'] {
+  margin-right: 1.5rem;
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1.3rem;
+}
+
+
